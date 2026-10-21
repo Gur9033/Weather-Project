@@ -24,7 +24,15 @@ function Weather() {
             // 2. Forecast API
             const forecastRes = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&units=metric&appid=${API_KEY}`);
             const forecastData = await forecastRes.json();
-            
+            // Get latitude and longitude of searched city
+            const { lat, lon } = currentData.coord;
+            // Fetch next 24 hours forecast
+            const hourlyRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,weather_code,precipitation_probability&forecast_days=2&timezone=auto`);
+            if(!hourlyRes.ok) {
+                throw new Error("Hourly forecast not available");
+            }
+            const hourlyData = await hourlyRes.json();
+
             const formattedData = {
                 city: currentData.name,
                 temp: Math.round(currentData.main.temp),
@@ -33,7 +41,8 @@ function Weather() {
                 realFeel: `${Math.round(currentData.main.feels_like)}°`,
                 wind: `${(currentData.wind.speed * 3.6).toFixed(1)} km/h`,
                 uvIndex: "3",
-                hourly: generateFixedHourlyForecast(forecastData.list),
+                /*hourly: generateFixedHourlyForecast(forecastData.list),*/
+                hourly: generateHourlyForecast(hourlyData),
                 weekly: generate7DayForecast(forecastData.list),
             };
             setWeatherData(formattedData);
@@ -57,18 +66,39 @@ function Weather() {
     };
 
     // Today's Forecast
-    const generateFixedHourlyForecast = (list) => {
-        const defaultTimes = ["6:00 AM", "9:00 AM", "12:00 PM", "3:00 PM", "6:00 PM", "9:00 PM"];
-        return defaultTimes.map((timeStr, index) => {
-            const item = list[index] || list[0];
+    const generateHourlyForecast = (data) => {
+        const times = data.hourly.time;
+        const now = Date.now();
+        // Find the first available hour at or after current time
+        const startIndex = times.findIndex((time) => new Date(time).getTime() >= now);
+        if (startIndex === -1) {
+            return [];
+        }
+        return times.slice(startIndex, startIndex + 24).map((time, index) => {
+            const i = startIndex + index;
             return {
-                time: timeStr,
-                icon: getWeatherEmoji(item.weather[0].main),
-                temp: `${Math.round(item.main.temp)}°`,
+                time: new Date(time).toLocaleTimeString("en-US", {
+                    hour: "numeric",
+                    minute: "2-digit",
+                }),
+                icon: getOpenMeteoEmoji(data.hourly.weather_code[i]),
+                temp: `${Math.round(data.hourly.temperature_2m[i])}°`,
+                rainChance: data.hourly.precipitation_probability[i],
             };
         });
     };
-
+    // Weather emoji based on Open-Meteo weather code
+    const getOpenMeteoEmoji = (code) => {
+        if (code === 0) return "☀️";
+        if ([1, 2].includes(code)) return "🌤️";
+        if (code === 3) return "☁️";
+        if ([45, 48].includes(code)) return "🌫️";
+        if ([51, 53, 55, 56, 57].includes(code)) return "🌦️";
+        if ([61, 63, 65, 66, 67, 80, 81, 82].includes(code)) return "🌧️";
+        if ([71, 73, 75, 77, 85, 86].includes(code)) return "❄️";
+        if ([95, 96, 99].includes(code)) return "⛈️";
+        return "🌤️";
+    };
     // 7-Day Forecast
     const generate7DayForecast = (list) => {
         const dailyMap = {};

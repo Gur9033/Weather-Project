@@ -73,6 +73,10 @@ body
 {
   color: #fff;
 }
+.sections
+{
+  margin-top: 20px;
+}
 /* Symbols */
 .nav-icon 
 {
@@ -207,7 +211,7 @@ body
 {
   font-size: 110px;
 }
-/* Hourly Forecast */
+/* Hourly Forecast 
 .hourly 
 {
   display: flex;
@@ -238,7 +242,7 @@ body
   color: #ffffff;
   font-weight: 600;
   font-size: 16px;
-}
+}*/
 /* Air Conditions */
 .card-header 
 {
@@ -342,10 +346,79 @@ body
   color: #939bA5;
   font-size: 16px;
 }
-
-
-
-
+/* Today's Forecast Card */
+.weather-layout 
+{
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 20px;
+  min-width: 0;
+}
+.left-side 
+{
+  min-width: 0;
+}
+.left-side > .card:first-of-type 
+{
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.hourly 
+{
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  box-sizing: border-box;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.hourly::-webkit-scrollbar 
+{
+  display: none;
+}
+.hourly > div 
+{
+  display: flex;
+  flex: 0 0 100px;
+  min-width: 100px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 8px 5px;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 12px;
+  color: #939ba5;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+.hourly > div:last-child 
+{
+  border-right: none;
+}
+.hourly > div span:first-child 
+{
+  white-space: nowrap;
+  font-size: 12px;
+}
+.hourly > div span:nth-child(2) 
+{
+  display: block;
+  font-size: 26px;
+  line-height: 1.2;
+}
+.hourly > div b {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  white-space: nowrap;
+}
 
 /* Tablet Responsive: 768px - 1024px */
 @media screen and (max-width: 1024px) 
@@ -654,3 +727,17 @@ body
     font-size: 11px;
   }
 }
+/* Responsive layout */
+@media (max-width: 767px) 
+{
+  .weather-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .hourly > div 
+  {
+    flex-basis: 90px;
+    min-width: 90px;
+  }
+}
+
+
