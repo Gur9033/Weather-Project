@@ -740,96 +740,95 @@ body
   }
 }
 
-
-
-
-
-
-
-
-.map-page {
-    width: 100%;
-    min-width: 0;
-    padding: 20px;
-    color: #e7edf6;
+.map-page 
+{
+  width: 100%;
+  min-width: 0;
+  padding: 20px;
+  color: #e7edf6;
 }
-
-.map-page > p {
-    color: #939ba5;
-    margin: 10px 0 20px;
+.map-page > p 
+{
+  color: #939ba5;
+  margin: 10px 0 20px;
 }
-
-.map-search {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-    max-width: 620px;
+.map-search 
+{
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  max-width: 620px;
 }
-
-.map-search input {
-    flex: 1;
-    min-width: 0;
-    padding: 12px 15px;
-    color: white;
-    background: #202b3b;
-    border: 1px solid #3b4d63;
-    border-radius: 10px;
-    outline: none;
+.map-search input 
+{
+  flex: 1;
+  min-width: 0;
+  padding: 12px 15px;
+  color: white;
+  background: #202b3b;
+  border: 1px solid #3b4d63;
+  border-radius: 10px;
+  outline: none;
 }
-
-.map-search button {
-    padding: 12px 20px;
-    background: #0075ff;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
+.map-search button 
+{
+  padding: 12px 20px;
+  background: #0075ff;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
 }
-
-.map-search button:disabled {
-    opacity: 0.6;
-    cursor: wait;
+.map-search button:disabled 
+{
+  opacity: 0.6;
+  cursor: wait;
 }
-
-.map-weather-card {
-    background: #202b3b;
-    border-radius: 14px;
-    padding: 20px;
-    margin-bottom: 20px;
+.map-weather-card 
+{
+  background: #202b3b;
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 20px;
 }
-
-.map-weather-card h2 {
-    margin: 10px 0;
-    font-size: 32px;
+.map-weather-card h2 
+{
+  margin: 10px 0;
+  font-size: 32px;
 }
-
-.map-weather-card p {
-    margin: 6px 0;
-    color: #c4cfdd;
+.map-weather-card p 
+{
+  margin: 6px 0;
+  color: #c4cfdd;
 }
-
-.weather-map {
-    width: 100%;
-    height: 480px;
-    border-radius: 16px;
-    overflow: hidden;
-    border: 1px solid #3b4d63;
+.weather-map 
+{
+  width: 100%;
+  height: 480px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #3b4d63;
 }
-
-.map-error {
-    color: #ff8585 !important;
+.map-error 
+{
+  color: #ff8585 ;
 }
-
-@media (max-width: 600px) {
-    .map-page {
-        padding: 10px 5px;
-    }
-
-    .weather-map {
-        height: 350px;
-    }
-
-    .map-search button {
-        padding: 10px 12px;
-    }
+.leaflet-control-attribution 
+{
+  display: none;
+}
+@media (max-width: 600px) 
+{
+  .map-page 
+  {
+    padding: 10px 5px;
+  }
+  .weather-map 
+  {
+    height: 350px;
+  }
+  .map-search button 
+  {
+    padding: 10px 12px;
+  }
 }

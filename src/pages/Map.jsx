@@ -82,7 +82,7 @@ function Map()
             <div className="weather-map">
                 <MapContainer center={position} zoom={10} scrollWheelZoom={true} style={{ height: "100%", width: "100%" }}>
                     <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
-                    <ChangeMapView position={position} />
+                    <ChangeMapView position={position}/>
                     <Marker position={position}>
                         <Popup>
                             <strong>{city}</strong>
